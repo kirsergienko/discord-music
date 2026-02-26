@@ -1,8 +1,8 @@
 FROM python:3.11-slim
 
-# Install ffmpeg and required system dependencies
+# Install ffmpeg, nodejs (for yt-dlp JS execution), and required system dependencies
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends ffmpeg curl && \
+    apt-get install -y --no-install-recommends ffmpeg curl nodejs && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 

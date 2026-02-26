@@ -105,8 +105,9 @@ class Music(commands.Cog):
             
         await interaction.response.send_message(f"Joined {channel.name}")
 
-    @app_commands.command(name="play", description="Plays a song from YouTube or search term")
-    async def play(self, interaction: discord.Interaction, search: str):
+    @app_commands.command(name="play", description="Plays a song from YouTube (Search or URL)")
+    @app_commands.describe(query="The search term or YouTube URL to play")
+    async def play(self, interaction: discord.Interaction, query: str):
         # Defers response as downloading takes time
         await interaction.response.defer()
         
@@ -121,7 +122,7 @@ class Music(commands.Cog):
 
         try:
             # We use typing context manager for visuals, though it's slash command so defer applies
-            player = await YTDLSource.from_url(search, loop=self.bot.loop, stream=True)
+            player = await YTDLSource.from_url(query, loop=self.bot.loop, stream=True)
             
             queue_state = self.get_queue(interaction.guild.id)
             
@@ -138,7 +139,9 @@ class Music(commands.Cog):
                 await interaction.followup.send(f'Now playing: **{player.title}**')
                 
         except Exception as e:
-            logger.error(f"Error checking out {search}: {e}")
+            import traceback
+            traceback_str = ''.join(traceback.format_exception(None, e, e.__traceback__))
+            logger.error(f"Error checking out {query}: {e}\n{traceback_str}")
             await interaction.followup.send("An error occurred while trying to play the song. Maybe restricted or private via yt-dlp.")
 
     @app_commands.command(name="queue", description="Shows the current music queue")
