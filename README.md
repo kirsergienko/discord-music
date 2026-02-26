@@ -25,6 +25,10 @@ The absolute easiest way to deploy this bot is via Docker.
    ```
 2. Open `.env` and paste your Bot Token from the [Discord Developer Portal](https://discord.com/developers/applications).
 3. Ensure your bot has the **Message Content Intent** enabled in the Developer Portal.
+4. **YouTube Bot Protection Bypass (Cookies):** YouTube blocks generic server traffic. For the bot to play videos effectively, you should export your YouTube cookies:
+   - Install a browser extension like [Get cookies.txt LOCALLY](https://chrome.google.com/webstore/detail/get-cookiestxt-locally/ccpbcjhkecglkamamajpjjoaleodaqhk) for Chrome or Firefox.
+   - Go to YouTube.com (make sure you're logged in).
+   - Click the extension and export the cookies. Save the file exactly as `cookies.txt` inside the `discord-music` folder alongside the bot code.
 
 ### Run
 
